@@ -53,6 +53,7 @@ pub use lists::Flistp;
 pub use floatfns::extract_float;
 pub use floatfns::fmod_float;
 pub use symbols::Fsymbolp;
+pub use strings::Fstring_equal;
 
 // Cryptographic functions used in the C codebase.
 pub use crypto::sha256_buffer;
@@ -111,6 +112,7 @@ pub extern "C" fn rust_init_syms() {
         defsubr(&*strings::Sbase64_encode_string);
         defsubr(&*strings::Sbase64_decode_string);
         defsubr(&*strings::Sstring_bytes);
+        defsubr(&*strings::Sstring_equal);
         defsubr(&*strings::Snull);
         defsubr(&*character::Smax_char);
         defsubr(&*character::Scharacterp);

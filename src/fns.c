@@ -137,26 +137,6 @@ which is at least the number of distinct elements.  */)
   return make_fixnum_or_float (len);
 }
 
-DEFUN ("string-equal", Fstring_equal, Sstring_equal, 2, 2, 0,
-       doc: /* Return t if two strings have identical contents.
-Case is significant, but text properties are ignored.
-Symbols are also allowed; their print names are used instead.  */)
-  (register Lisp_Object s1, Lisp_Object s2)
-{
-  if (SYMBOLP (s1))
-    s1 = SYMBOL_NAME (s1);
-  if (SYMBOLP (s2))
-    s2 = SYMBOL_NAME (s2);
-  CHECK_STRING (s1);
-  CHECK_STRING (s2);
-
-  if (SCHARS (s1) != SCHARS (s2)
-      || SBYTES (s1) != SBYTES (s2)
-      || memcmp (SDATA (s1), SDATA (s2), SBYTES (s1)))
-    return Qnil;
-  return Qt;
-}
-
 DEFUN ("compare-strings", Fcompare_strings, Scompare_strings, 6, 7, 0,
        doc: /* Compare the contents of two strings, converting to multibyte if needed.
 The arguments START1, END1, START2, and END2, if non-nil, are
@@ -4736,7 +4716,6 @@ this variable.  */);
   defsubr (&Srandom);
   defsubr (&Slength);
   defsubr (&Ssafe_length);
-  defsubr (&Sstring_equal);
   defsubr (&Scompare_strings);
   defsubr (&Sstring_lessp);
   defsubr (&Sstring_version_lessp);

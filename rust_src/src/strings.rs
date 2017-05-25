@@ -2,9 +2,9 @@ use std::ptr;
 
 use libc;
 
-use lisp::{LispObject, Qnil, SBYTES, STRINGP, CHECK_STRING};
+use lisp::{LispObject, Qnil, SBYTES, SCHARS, STRINGP, CHECK_STRING};
 use lists::NILP;
-use remacs_sys::{Lisp_Object, SSDATA, STRING_MULTIBYTE};
+use remacs_sys::{Lisp_Object, Qt, SDATA, SSDATA, STRING_MULTIBYTE, SYMBOL_NAME};
 
 extern "C" {
     fn make_string(s: *const libc::c_char, length: libc::ptrdiff_t) -> Lisp_Object;
@@ -173,3 +173,36 @@ defun!("string-bytes",
 If STRING is multibyte, this may be greater than the length of STRING.
 
 (fn STRING)");
+
+fn string_equal(mut s1: LispObject, mut s2: LispObject) -> LispObject {
+    if s1.is_symbol() {
+        s1 = LispObject::from_raw(unsafe { SYMBOL_NAME(s1.to_raw()) });
+    }
+    if s2.is_symbol() {
+        s2 = LispObject::from_raw(unsafe { SYMBOL_NAME(s2.to_raw()) });
+    }
+    CHECK_STRING(s1.to_raw());
+    CHECK_STRING(s2.to_raw());
+
+    LispObject::from_bool(
+        SCHARS(s1) == SCHARS(s2) &&
+        SBYTES(s1) == SBYTES(s2) &&
+        unsafe {
+            libc::memcmp(SDATA(s1.to_raw()) as *mut libc::c_void,
+                         SDATA(s2.to_raw()) as *mut libc::c_void,
+                         SBYTES(s1) as usize) == 0
+        })
+}
+
+defun!("string-equal",
+       Fstring_equal(s1, s2),
+       Sstring_equal,
+       string_equal,
+       2,
+       2,
+       ptr::null(),
+       "Return t if two strings have identical contents.
+Case is significant, but text properties are ignored.
+Symbols are also allowed; their print names are used instead.
+
+(fn S1 S2)");

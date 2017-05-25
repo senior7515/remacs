@@ -762,6 +762,10 @@ mod deprecated {
         unsafe { STRING_BYTES(XSTRING(string)) }
     }
 
+    pub fn SCHARS(string: LispObject) -> libc::ptrdiff_t {
+        unsafe { (*XSTRING(string)).size }
+    }
+
 
     /// Convert a tagged pointer to a normal C pointer.
     ///

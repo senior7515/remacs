@@ -660,8 +660,10 @@ extern "C" {
 
     pub fn make_unibyte_string(s: *const libc::c_char, length: libc::ptrdiff_t) -> Lisp_Object;
     pub fn wrong_type_argument(predicate: Lisp_Object, value: Lisp_Object) -> Lisp_Object;
+    pub fn SYMBOL_NAME(s: Lisp_Object) -> Lisp_Object;
     pub fn STRING_BYTES(s: *mut Lisp_String) -> libc::ptrdiff_t;
     pub fn STRING_MULTIBYTE(a: Lisp_Object) -> bool;
+    pub fn SDATA(string: Lisp_Object) -> *mut libc::c_uchar;
     pub fn SSDATA(string: Lisp_Object) -> *mut libc::c_char;
     pub fn make_float(float_value: libc::c_double) -> Lisp_Object;
 
