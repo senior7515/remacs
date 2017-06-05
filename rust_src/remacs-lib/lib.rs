@@ -8,6 +8,7 @@ extern crate libc;
 
 mod files;
 mod math;
+mod docfile;
 
 // Used for creating temporary files in emacs
 pub use files::rust_make_temp;
@@ -18,3 +19,6 @@ pub use math::rust_count_trailing_zeros_ll;
 pub use math::rust_count_one_bits;
 pub use math::rust_count_one_bits_l;
 pub use math::rust_count_one_bits_ll;
+
+// Used by make-docfile
+pub use docfile::scan_rust_file;
