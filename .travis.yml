@@ -15,10 +15,6 @@ addons:
     - libgif-dev
     - libxpm-dev
 
-env:
-  # Ensure that we build without warnings.
-  - CARGO_FLAGS="--features 'strict'"
-
 before_script: (cargo install --force rustfmt || true)
 
 script:

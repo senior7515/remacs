@@ -10,19 +10,6 @@ set -x
 
 export PATH=$PATH:~/.cargo/bin
 
-echo "Checking formatting"
-cd "$DIR/rust_src"
-cargo fmt -- --version
-
-cd "$DIR/rust_src/src"
-cargo fmt -- --write-mode=diff
-
-cd "$DIR/rust_src/remacs-sys"
-cargo fmt -- --write-mode=diff
-
-cd "$DIR/rust_src/alloc_unexecmacosx"
-cargo fmt -- --write-mode=diff
-
 cd "$DIR"
 echo 'Configuring Emacs for building'
 ./autogen.sh
