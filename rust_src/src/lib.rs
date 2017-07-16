@@ -86,7 +86,6 @@ pub use lists::Fplist_put;
 pub use lists::Flist;
 pub use lists::Fmake_list;
 pub use floatfns::extract_float;
-pub use floatfns::fmod_float;
 pub use objects::Fequal;
 pub use objects::Fequal_including_properties;
 pub use symbols::Fsymbolp;
@@ -227,6 +226,29 @@ pub extern "C" fn rust_init_syms() {
         defsubr(&*vectors::Slength);
         defsubr(&*crypto::Sbuffer_hash);
 
-        floatfns::init_float_syms();
+        defsubr(&*floatfns::Sisnan);
+        defsubr(&*floatfns::Sacos);
+        defsubr(&*floatfns::Sasin);
+        defsubr(&*floatfns::Satan);
+        defsubr(&*floatfns::Scos);
+        defsubr(&*floatfns::Ssin);
+        defsubr(&*floatfns::Stan);
+        defsubr(&*floatfns::Slog);
+        defsubr(&*floatfns::Ssqrt);
+        defsubr(&*floatfns::Sexp);
+        defsubr(&*floatfns::Sffloor);
+        defsubr(&*floatfns::Sfceiling);
+        defsubr(&*floatfns::Sftruncate);
+        defsubr(&*floatfns::Sfloat);
+        defsubr(&*floatfns::Scopysign);
+        defsubr(&*floatfns::Sfrexp);
+        defsubr(&*floatfns::Sldexp);
+        defsubr(&*floatfns::Sexpt);
+        defsubr(&*floatfns::Slogb);
+        defsubr(&*floatfns::Sfround);
+        defsubr(&*floatfns::Sceiling);
+        defsubr(&*floatfns::Sfloor);
+        defsubr(&*floatfns::Sround);
+        defsubr(&*floatfns::Struncate);
     }
 }
